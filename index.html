@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#070d13">
+  <meta name="description" content="Pilot a prototype interceptor through twelve hostile sectors. Four bosses, field upgrades, and an endless frontier. A free arcade space shooter.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>BLACKBOX SQUADRON — Operation Dead Signal</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="css/game.css?v=0501">
+  <script src="js/game.js?v=0501" defer></script>
+  <script src="js/campaign.js?v=0501" defer></script>
+  <script src="js/presentation.js?v=0501" defer></script>
+  <script src="js/platform.js?v=0501" defer></script>
+  <script src="js/ui.js?v=0501" defer></script>
+</head>
+<body>
+  <header class="masthead">
+    <a class="brand" href="./" aria-label="BLACKBOX SQUADRON home"><svg viewBox="0 0 36 40" aria-hidden="true"><path d="M18 2 33 10v19L18 38 3 29V10Z"/><path d="m18 8-8 18 8-4 8 4Z"/></svg><span>BLACKBOX <b>SQUADRON</b></span></a>
+    <span class="header-tag">FLIGHT OPERATIONS <span class="slash">/</span> 05</span>
+    <div class="header-actions"><button id="sound-toggle" class="icon-button" aria-label="Mute sound" title="Sound">SOUND ON</button><button id="settings-open" class="icon-button" aria-label="Open settings">SETTINGS</button></div>
+  </header>
+  <main class="cockpit">
+    <aside class="left-console console" aria-label="Pilot and flight information">
+      <div class="section-label"><i class="status-dot"></i> SQUADRON UPLINK</div>
+      <h2>Every signal<br>has a source.</h2>
+      <p class="intro-copy">Twelve sectors beyond the perimeter. One interceptor. Find the source of the dead signal.</p>
+      <section class="readout"><div class="section-label">PILOT RECORD</div><div class="record-main"><span id="record-score">000000</span><small>PERSONAL BEST</small></div><div class="stat-pair"><div><b id="record-sorties">0</b><span>SORTIES</span></div><div><b id="record-sector">01</b><span>FURTHEST SECTOR</span></div></div></section>
+      <section class="readout"><div class="section-label">INTERCEPTOR STATUS <span id="status-label">STANDBY</span></div><div class="telemetry"><span>HULL INTEGRITY</span><b id="hull-label">3 / 3</b></div><div id="hull-meter" class="hull-meter"><i></i><i></i><i></i></div><div class="telemetry"><span>ORDNANCE</span><b id="bomb-label">03</b></div><div class="telemetry"><span>FIELD UPGRADES</span><b id="upgrade-count">00</b></div><div id="upgrade-list" class="equipment-list">Standard flight configuration</div></section>
+      <button id="scores-open" class="text-button">LOCAL FLIGHT RECORDS <span>↗</span></button>
+      <div class="console-footer"><span class="tiny-cross">+</span> X-01 / EXPERIMENTAL INTERCEPTOR<br><span class="muted">BLACKBOX FLIGHT SYSTEMS</span></div>
+    </aside>
+    <section class="flight-section" aria-label="Game">
+      <div class="flight-topline"><span><i class="status-dot"></i> <span id="flight-state">SYSTEMS READY</span></span><div><button id="pause-button" class="small-button" hidden>PAUSE</button><button id="fullscreen-button" class="small-button" aria-label="Toggle fullscreen">⛶</button></div></div>
+      <div id="wrap">
+        <canvas id="game" width="540" height="720" tabindex="0" aria-label="Arcade space shooter. Move with WASD or arrow keys, Space to fire, C to bomb, Shift for precision, Escape to pause.">Your browser needs HTML5 Canvas to play BLACKBOX SQUADRON.</canvas>
+        <div id="screen-overlay" class="screen-overlay" role="region" aria-label="Flight menu">
+          <div id="screen-content" class="screen-content"><p class="eyebrow">INITIALIZING FLIGHT SYSTEMS</p><h1>BLACKBOX<br><span>SQUADRON</span></h1><p>Loading interceptor…</p></div>
+        </div>
+        <div id="toast" class="toast" role="status" aria-live="polite"></div>
+      </div>
+      <div class="flight-bottomline"><span>OPERATION DEAD SIGNAL</span><span>v0.5.0 <i class="status-dot"></i></span></div>
+    </section>
+    <aside class="right-console console" aria-label="Mission route and controls">
+      <div class="section-label">OPERATION / 001</div><h2 class="operation-name">DEAD SIGNAL</h2><div class="route-label"><span>SECTOR ROUTE</span><span id="route-progress">00 / 12</span></div><ol id="sector-route" class="sector-route"></ol>
+      <section class="flight-guide"><div class="section-label">FLIGHT CONTROLS</div><div><span>MOVE</span><kbd>W A S D</kbd></div><div><span>FIRE</span><kbd>SPACE</kbd></div><div><span>SMART BOMB</span><kbd>C</kbd></div><div><span>PRECISION</span><kbd>SHIFT</kbd></div><div><span>PAUSE</span><kbd>ESC</kbd></div><p>Auto-fire is on by default.<br>Gamepad: left stick · A fire · B bomb.</p><button id="guide-open" class="text-button">PILOT FIELD MANUAL <span>↗</span></button></section>
+    </aside>
+  </main>
+  <div id="touch" aria-label="Touch flight controls">
+    <div class="dpad" aria-label="Movement pad"><button class="tbtn" id="t-up" aria-label="Move up">▲</button><button class="tbtn" id="t-left" aria-label="Move left">◀</button><span class="dpad-center" aria-hidden="true">+</span><button class="tbtn" id="t-right" aria-label="Move right">▶</button><button class="tbtn" id="t-down" aria-label="Move down">▼</button></div>
+    <div class="touch-hint">DRAG SHIP<br>OR USE PAD</div>
+    <div class="touch-actions"><button class="tbtn" id="t-bomb" aria-label="Use smart bomb">BOMB<small id="touch-bombs">3</small></button><button class="tbtn" id="t-fire" aria-label="Fire weapons">FIRE</button></div>
+    <button class="tbtn" id="t-start" hidden>START</button><button class="tbtn" id="t-rst" hidden>RST</button>
+  </div>
+  <dialog id="utility-dialog" aria-labelledby="dialog-title"><div class="dialog-top"><span class="section-label">BLACKBOX FLIGHT SYSTEMS</span><button id="dialog-close" class="icon-button" aria-label="Close dialog">✕</button></div><div id="dialog-body"></div></dialog>
+  <noscript><div class="noscript">Enable JavaScript to fly BLACKBOX SQUADRON.</div></noscript>
+</body>
+</html>
